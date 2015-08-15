@@ -22,12 +22,24 @@ public:
     0 1 2
     */
 
-    cocos2d::Color4F color;
-
     void update(float delta);
 
-protected:
+    enum BlockType
+    {
+        BLOCK_STONE,
+        BLOCK_GROUND,
+        BLOCK_AIR,
+        BLOCK_SIZE
+    };
+
+    //static cocos2d::Color4F typeColor[BLOCK_SIZE];
+
+    void changeType(BlockType _type);
+
 private:
+
+    BlockType type;
+    cocos2d::Color4F color;
 
 };
 
