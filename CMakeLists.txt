@@ -123,6 +123,7 @@ set(GAME_SRC
 )
 
 set(GAME_HEADERS
+  Classes/Common.h
   Classes/AppDelegate.h
   Classes/HelloWorldScene.h
   Classes/Client.h

@@ -3,6 +3,10 @@
 
 #include "cocos2d.h"
 
+#include "Common.h"
+
+USING_NS_CC;
+
 class Block : public cocos2d::Node
 {
 public:
@@ -13,7 +17,7 @@ public:
     virtual bool init();
     CREATE_FUNC(Block);
 
-    static const int size = 30;
+    static const int size = 45;
 
     Block* neighbor[3][3];
     /* old
@@ -32,14 +36,17 @@ public:
         BLOCK_SIZE
     };
 
-    //static cocos2d::Color4F typeColor[BLOCK_SIZE];
+    static Color4F colorAir() { return Color4F(0.5, 0.95, 1, 1); }
+    static Color4F colorGround() { return Color4F(0.65, 0.45, 0.30, 1); }
+    static Color4F colorStone() { return Color4F(0.3, 0.4, 0.4, 1); }
 
     void changeType(BlockType _type);
+    BlockType getType() const { return _type; }
 
 private:
 
-    BlockType type;
-    cocos2d::Color4F color;
+    BlockType _type;
+    cocos2d::Color4F _color;
 
 };
 
