@@ -14,12 +14,23 @@ bool Board::init()
     Size screen = Director::getInstance()->getVisibleSize();
 
     // blocks
-    auto s = Block::size;
-    for (int x = 0; x < screen.width; x += s) {
-        for (int y = 0; y < screen.height; y += s) {
-            auto block = Block::create();
-            block->setPosition(Vec2(x, y));
-            this->addChild(block, 0);
+    int s = std::min(screen.width, screen.height) / Block::size - 1;
+    Block* blocks[s][s];
+    for (int i = 0; i < s; i++) {
+        for (int j = 0; j < s; j++) {
+            blocks[i][j] = Block::create();
+            blocks[i][j]->setPosition(Point(
+                screen.width/2 - static_cast<float>(Block::size*s)/2.0 + Block::size*i,
+                screen.height/2 - static_cast<float>(Block::size*s)/2.0 + Block::size*j
+            ));
+            for (int x = -1; x <= 1; x++) {
+                for (int y = -1; y <= 1; y++) {
+                    auto n = blocks[i][j]->neighbor[x+1][y+1];
+                    if ((x < 0 || x >= s) || (y < 0 || y >= s)) n = nullptr;
+                    else n = blocks[i+x][j+y];
+                }
+            }
+            this->addChild(blocks[i][j], 0);
         }
     }
 

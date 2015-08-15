@@ -15,8 +15,16 @@ public:
 
     static const int size = 30;
 
+    Block* neighbor[3][3];
+    /* old
+    6 5 4
+    7 X 3
+    0 1 2
+    */
+
 protected:
 private:
+
 };
 
 #endif // __BLOCK_H__

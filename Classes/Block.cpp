@@ -4,7 +4,12 @@ USING_NS_CC;
 
 Block::Block()
 {
-    //ctor
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+            neighbor[i][j] = nullptr;
+        }
+    }
+    neighbor[1][1] = this;
 }
 
 Block::~Block()
