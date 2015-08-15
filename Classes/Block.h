@@ -3,7 +3,7 @@
 
 #include "cocos2d.h"
 
-class Block : public cocos2d::DrawNode
+class Block : public cocos2d::Node
 {
 public:
 
@@ -21,6 +21,10 @@ public:
     7 X 3
     0 1 2
     */
+
+    cocos2d::Color4F color;
+
+    void update(float delta);
 
 protected:
 private:
