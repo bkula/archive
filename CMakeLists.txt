@@ -119,6 +119,7 @@ set(GAME_SRC
   Classes/Client.cpp
   Classes/Block.cpp
   Classes/Board.cpp
+  Classes/Server.cpp
   ${PLATFORM_SPECIFIC_SRC}
 )
 
@@ -129,6 +130,7 @@ set(GAME_HEADERS
   Classes/Client.h
   Classes/Block.h
   Classes/Board.h
+  Classes/Server.h
   ${PLATFORM_SPECIFIC_HEADERS}
 )
 

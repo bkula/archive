@@ -2,5 +2,5 @@
 
 Server::Server()
 {
-    //ctor
+    WebDelegate::getServer()->send("x");
 }

@@ -15,6 +15,8 @@ public:
 
     void menuCloseCallback(cocos2d::Ref* pSender);
 
+    NetworkDelegate networkDelegate;
+
 protected:
 private:
 };

@@ -1,6 +1,7 @@
 #include "AppDelegate.h"
 #include "HelloWorldScene.h"
 #include "Client.h"
+#include "Server.h"
 
 USING_NS_CC;
 
@@ -31,6 +32,8 @@ bool AppDelegate::applicationDidFinishLaunching() {
         glview = GLViewImpl::create("My Game");
         director->setOpenGLView(glview);
     }
+
+    Server server();
 
     // turn on display FPS
     director->setDisplayStats(true);
