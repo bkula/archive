@@ -7,7 +7,7 @@
 
 USING_NS_CC;
 
-class Block : public cocos2d::Node
+class Block : public cocos2d::Sprite
 {
 public:
 
@@ -18,13 +18,6 @@ public:
     CREATE_FUNC(Block);
 
     static const int size = 45;
-
-    Block* neighbor[3][3];
-    /* old
-    6 5 4
-    7 X 3
-    0 1 2
-    */
 
     void update(float delta);
 
@@ -43,7 +36,16 @@ public:
     void changeType(BlockType _type);
     BlockType getType() const { return _type; }
 
+    BlockType getNeighborType(int i, int j);
+    void setNeighbor(int i, int j, Block* n);
+
 private:
+
+    Block* neighbor[3][3];
+
+    BlockType neighborTypeUsedForTexture[3][3];
+
+    void updateTexture();
 
     BlockType _type;
     cocos2d::Color4F _color;

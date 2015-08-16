@@ -14,7 +14,7 @@ public:
     virtual bool init();
     CREATE_FUNC(Board);
 
-    static constexpr float scrollSpeed = 0.06;
+    static constexpr float scrollSpeed = 0.1;
 
     void update(float delta);
 
