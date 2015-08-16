@@ -2,25 +2,26 @@
 #define __WEB_DELEGATE_H__
 
 #include "Common.h"
+#include "PublicVar.h"
 
 class WebDelegate
 {
 public:
 
-    WebDelegate(std::string adress);
+    WebDelegate();
 
     std::string receive();
     void send(std::string message);
 
-    static WebDelegate* getServer() { return getDelegate(0); }
-    static WebDelegate* getClient() { return getDelegate(1); }
+    static WebDelegate* getServer();
+    static WebDelegate* getClient();
 
 private:
 
     std::vector<PublicVar*> variables;
 
-    static WebDelegate* delegate[2];
-    static getDelegate(int i);
+    static WebDelegate* client;
+    static WebDelegate* server;
 };
 
 #endif // __WEB_DELEGATE_H__

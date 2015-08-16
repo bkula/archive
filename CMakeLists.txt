@@ -120,6 +120,8 @@ set(GAME_SRC
   Classes/Block.cpp
   Classes/Board.cpp
   Classes/Server.cpp
+  Classes/WebDelegate.cpp
+  Classes/PublicVar.cpp
   ${PLATFORM_SPECIFIC_SRC}
 )
 
@@ -131,6 +133,8 @@ set(GAME_HEADERS
   Classes/Block.h
   Classes/Board.h
   Classes/Server.h
+  Classes/WebDelegate.h
+  Classes/PublicVar.h
   ${PLATFORM_SPECIFIC_HEADERS}
 )
 
