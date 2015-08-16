@@ -106,9 +106,11 @@ void Block::updateTexture()
     auto y = getPosition().y;
     auto s = Block::size;
 
+    // I don't know why, but top must be replaced with down to work correctly :O
+
     // top left
-    if ((getNeighborType(0,1) != BLOCK_AIR) ||
-        (getNeighborType(1,0) != BLOCK_AIR))
+    if ((getNeighborType(1,0) != BLOCK_AIR) ||
+        (getNeighborType(2,1) != BLOCK_AIR))
     {
         auto d = DrawNode::create();
         Point b[] = {Point(0,s),Point(s/2,s),Point(s/2,s/2),Point(0,s/2)};
@@ -117,7 +119,7 @@ void Block::updateTexture()
     }
 
     // top right
-    if ((getNeighborType(0,1) != BLOCK_AIR) ||
+    if ((getNeighborType(2,1) != BLOCK_AIR) ||
         (getNeighborType(1,2) != BLOCK_AIR))
     {
         auto d = DrawNode::create();
@@ -127,8 +129,8 @@ void Block::updateTexture()
     }
 
     // down left
-    if ((getNeighborType(1,0) != BLOCK_AIR) ||
-        (getNeighborType(2,1) != BLOCK_AIR))
+    if ((getNeighborType(0,1) != BLOCK_AIR) ||
+        (getNeighborType(1,0) != BLOCK_AIR))
     {
         auto d = DrawNode::create();
         Point b[] = {Point(0,s/2),Point(s/2,s/2),Point(s/2,0),Point(0,0)};
@@ -137,7 +139,7 @@ void Block::updateTexture()
     }
 
     // down right
-    if ((getNeighborType(2,1) != BLOCK_AIR) ||
+    if ((getNeighborType(0,1) != BLOCK_AIR) ||
         (getNeighborType(1,2) != BLOCK_AIR))
     {
         auto d = DrawNode::create();
