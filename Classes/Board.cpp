@@ -78,7 +78,7 @@ bool Board::init()
     // blocks
     //
 
-    int s = std::min(screen.width, screen.height) / Block::size;
+    int s = 50;//std::min(screen.width, screen.height) / Block::size;
     Block* blocks[s][s];
 
     // first create blocks
