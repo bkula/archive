@@ -14,8 +14,17 @@ public:
     virtual bool init();
     CREATE_FUNC(Board);
 
-protected:
+    static constexpr float scrollSpeed = 0.06;
+
+    void update(float delta);
+
 private:
+
+    // mouse
+    bool _isMouseDown;
+    float _moveFromX;
+    float _moveFromY;
+    float _scaleChange;
 };
 
 #endif // __BOARD_H__

@@ -62,7 +62,9 @@ bool Client::init()
     //this->addChild(sprite, 0);
 
     // Board
-    this->addChild(Board::create(), 0);
+    auto board = Board::create();
+    board->setPosition(Vec2(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
+    this->addChild(board, 0);
 
     return true;
 }
