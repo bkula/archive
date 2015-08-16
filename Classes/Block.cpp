@@ -9,6 +9,7 @@ Block::Block()
     for (int i = 0; i < 3; i++) {
         for (int j = 0; j < 3; j++) {
             neighbor[i][j] = nullptr;
+            neighborTypeUsedForTexture[i][j] = BLOCK_SIZE;
         }
     }
     neighbor[1][1] = this;
@@ -21,37 +22,140 @@ Block::~Block()
 
 bool Block::init()
 {
-    if ( !cocos2d::Node::init() )
+    if ( !cocos2d::Sprite::init() )
     {
         return false;
     }
 
     this->scheduleUpdate();
 
-    // air
-    Point b[] = {Point(0,0),Point(0,size),Point(size,size),Point(size,0)};
-    auto d = DrawNode::create();
-    d->drawPolygon(b, 4, colorAir(), 0, colorAir());
-    //addChild(d, -1);
-
     return 1;
+}
+
+Block::BlockType Block::getNeighborType(int i, int j)
+{
+    ASSERT(i < 0 || i > 2, "Invalid neighbor index");
+    ASSERT(j < 0 || j > 2, "Invalid neighbor index");
+    if (neighbor[i][j]) return neighbor[i][j]->getType();
+    else return BLOCK_STONE;
+}
+
+void Block::setNeighbor(int i, int j, Block* n)
+{
+    ASSERT(i < 0 || i > 2, "Invalid neighbor index");
+    ASSERT(j < 0 || j > 2, "Invalid neighbor index");
+    neighbor[i][j] = n;
 }
 
 void Block::update(float delta)
 {
-    // children' tags:
-    // 0 - circle
-    // 1, 2, 3, 4 - squares
-
-    if (getChildByTag(0) == nullptr) {
-        auto d = DrawNode::create();
-        d->drawDot(Point(Block::size/2, Block::size/2), Block::size/2, _color);
-        addChild(d, 0, 0);
+    if (isVisible()) {
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (neighborTypeUsedForTexture[i][j] != getNeighborType(i, j)) {
+                    updateTexture();
+                }
+            }
+        }
     }
+}
+
+void Block::changeType(BlockType newType)
+{
+    _type = newType;
+
+    switch (_type) {
+    case BLOCK_STONE: _color = colorStone(); break;
+    case BLOCK_GROUND: _color = colorGround(); break;
+    case BLOCK_AIR: _color = colorAir(); break;
+    default: break;
+    }
+
+    /* old
+    for (int i = 0; i <= 4; i++) {
+        if (getChildByTag(i)) removeChildByTag(i);
+    }
+    */
+}
+
+void Block::updateTexture()
+{
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+                neighborTypeUsedForTexture[i][j] = getNeighborType(i, j);
+        }
+    }
+
+    // begin
+    auto texture = RenderTexture::create(size, size);
+    texture->setPosition(Point(0,0));
+    texture->begin();
+
+    // air
+    Point b[] = {Point(0,0),Point(0,size),Point(size,size),Point(size,0)};
+    auto a = DrawNode::create();
+    a->drawPolygon(b, 4, colorAir(), 0, colorAir());
+    a->visit();
+
+    // circle
+    auto c = DrawNode::create();
+    c->drawDot(Point(Block::size/2, Block::size/2), Block::size/2, _color);
+    c->visit();
 
     auto x = getPosition().x;
     auto y = getPosition().y;
     auto s = Block::size;
+
+    // top left
+    if ((getNeighborType(0,1) != BLOCK_AIR) ||
+        (getNeighborType(1,0) != BLOCK_AIR))
+    {
+        auto d = DrawNode::create();
+        Point b[] = {Point(0,s),Point(s/2,s),Point(s/2,s/2),Point(0,s/2)};
+        d->drawPolygon(b, 4, _color, 0, _color);
+        d->visit();
+    }
+
+    // top right
+    if ((getNeighborType(0,1) != BLOCK_AIR) ||
+        (getNeighborType(1,2) != BLOCK_AIR))
+    {
+        auto d = DrawNode::create();
+        Point b[] = {Point(s/2,s),Point(s,s),Point(s,s/2),Point(s/2,s/2)};
+        d->drawPolygon(b, 4, _color, 0, _color);
+        d->visit();
+    }
+
+    // down left
+    if ((getNeighborType(1,0) != BLOCK_AIR) ||
+        (getNeighborType(2,1) != BLOCK_AIR))
+    {
+        auto d = DrawNode::create();
+        Point b[] = {Point(0,s/2),Point(s/2,s/2),Point(s/2,0),Point(0,0)};
+        d->drawPolygon(b, 4, _color, 0, _color);
+        d->visit();
+    }
+
+    // down right
+    if ((getNeighborType(2,1) != BLOCK_AIR) ||
+        (getNeighborType(1,2) != BLOCK_AIR))
+    {
+        auto d = DrawNode::create();
+        Point b[] = {Point(s/2,s/2),Point(s,s/2),Point(s,0),Point(s/2,0)};
+        d->drawPolygon(b, 4, _color, 0, _color);
+        d->visit();
+    }
+
+    // end
+    texture->end();
+    Director::getInstance()->getRenderer()->render();
+    setAnchorPoint(Point(0,0));
+    setTexture(texture->getSprite()->getTexture());
+    setTextureRect(Rect(0,0,size,size));
+}
+
+// TRASH
+
 /*
     // top left
     if ((! neighbor[0][1] || neighbor[0][1]->getType() != BLOCK_AIR) ||
@@ -107,21 +211,5 @@ void Block::update(float delta)
         }
     } else {
         if (getChildByTag(4)) removeChildByTag(4);
-    }*/
-}
-
-void Block::changeType(BlockType newType)
-{
-    _type = newType;
-
-    switch (_type) {
-    case BLOCK_STONE: _color = colorStone(); break;
-    case BLOCK_GROUND: _color = colorGround(); break;
-    case BLOCK_AIR: _color = colorAir(); break;
-    default: break;
     }
-
-    for (int i = 0; i <= 4; i++) {
-        if (getChildByTag(i)) removeChildByTag(i);
-    }
-}
+*/

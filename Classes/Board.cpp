@@ -108,8 +108,9 @@ bool Board::init()
             // neighbors
             for (int x = -1; x <= 1; x++) {
                 for (int y = -1; y <= 1; y++) {
-                    if ((i+x < 0 || i+x >= s) || (j+y < 0 || j+y >= s)) blocks[i][j]->neighbor[x+1][y+1] = nullptr;
-                    else blocks[i][j]->neighbor[x+1][y+1] = blocks[i+x][j+y];
+                    if (! ((i+x < 0 || i+x >= s) || (j+y < 0 || j+y >= s))) {
+                        blocks[i][j]->setNeighbor(x+1, y+1, static_cast<Block*>(blocks[i+x][j+y]));
+                    }
                 }
             }
 
