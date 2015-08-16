@@ -32,7 +32,7 @@ bool Block::init()
     Point b[] = {Point(0,0),Point(0,size),Point(size,size),Point(size,0)};
     auto d = DrawNode::create();
     d->drawPolygon(b, 4, colorAir(), 0, colorAir());
-    //addChild(d, -1);
+    addChild(d, -1);
 
     return 1;
 }
@@ -52,7 +52,7 @@ void Block::update(float delta)
     auto x = getPosition().x;
     auto y = getPosition().y;
     auto s = Block::size;
-/*
+
     // top left
     if ((! neighbor[0][1] || neighbor[0][1]->getType() != BLOCK_AIR) ||
         (! neighbor[1][0] || neighbor[1][0]->getType() != BLOCK_AIR))
@@ -107,7 +107,7 @@ void Block::update(float delta)
         }
     } else {
         if (getChildByTag(4)) removeChildByTag(4);
-    }*/
+    }
 }
 
 void Block::changeType(BlockType newType)
