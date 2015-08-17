@@ -28,6 +28,5 @@ WebDelegate* WebDelegate::getClient()
 
 void WebDelegate::send(std::string message)
 {
-    DEB(message);
-    DEB("ssss");
+    DEB("send message: " + message);
 }

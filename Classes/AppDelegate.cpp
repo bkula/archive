@@ -33,7 +33,8 @@ bool AppDelegate::applicationDidFinishLaunching() {
         director->setOpenGLView(glview);
     }
 
-    Server server();
+    auto server = new Server();
+    DELETE(server);
 
     // turn on display FPS
     director->setDisplayStats(true);
