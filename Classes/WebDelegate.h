@@ -10,15 +10,15 @@ public:
 
     WebDelegate();
 
-    std::string receive();
-    void send(std::string message);
+    //std::string receive();
+    //void send(std::string message);
 
     static WebDelegate* getServer();
     static WebDelegate* getClient();
 
 private:
 
-    std::vector<PublicVar*> variables;
+    //std::vector<PublicVar*> variables;
 
     static WebDelegate* client;
     static WebDelegate* server;

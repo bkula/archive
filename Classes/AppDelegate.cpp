@@ -3,6 +3,10 @@
 #include "Client.h"
 #include "Server.h"
 
+//#include "extensions/cocos-ext.h"
+#include "network/WebSocket.h"
+#include "network/SocketIO.h"
+
 USING_NS_CC;
 
 AppDelegate::AppDelegate() {
@@ -35,6 +39,11 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
     auto server = new Server();
     DELETE(server);
+
+    //WebSocketServer::getInstance()->update();
+    //auto web = new cocos2d::network::WebSocket();
+    //DELETE((web));
+    //network::SocketIO::getInstance();
 
     // turn on display FPS
     director->setDisplayStats(true);

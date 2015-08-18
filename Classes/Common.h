@@ -2,6 +2,8 @@
 
 #include "iostream"
 #include "string"
+#include "vector"
+#include "sstream"
 
 #define DELETE(ptr) {if(ptr)delete(ptr);ptr=nullptr;}
 

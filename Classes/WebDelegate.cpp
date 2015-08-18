@@ -26,7 +26,9 @@ WebDelegate* WebDelegate::getClient()
     return client;
 }
 
+/*
 void WebDelegate::send(std::string message)
 {
     DEB("send message: " + message);
 }
+*/
