@@ -7,7 +7,7 @@ Server::Server()
     //WebDelegate::getServer()->send("x");
 }
 
-void Server::update(float deleta)
+void Server::update()
 {
     //
 }

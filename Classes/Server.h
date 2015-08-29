@@ -9,7 +9,7 @@ public:
 
     Server();
 
-    void update(float delta);
+    void update();
 
 private:
 
